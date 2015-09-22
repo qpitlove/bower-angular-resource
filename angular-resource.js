@@ -573,12 +573,17 @@ angular.module('ngResource', ['ng']).
               undefined;
 
             forEach(action, function(value, key) {
-              if (key != 'params' && key != 'isArray' && key != 'interceptor') {
-                if (key === "timeout") {
-                  httpConfig[key] = value;
-                } else {
+              switch (key) {
+                default:
                   httpConfig[key] = copy(value);
-                }
+                  break;
+                case 'params':
+                case 'isArray':
+                case 'interceptor':
+                  break;
+                case 'timeout':
+                  httpConfig[key] = value;
+                  break;
               }
             });
 
